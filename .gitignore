@@ -40,3 +40,7 @@ Thumbs.db
 scratch/
 temp/
 *.local.*
+
+# PCF build output
+out/
+*.pcfproj.user

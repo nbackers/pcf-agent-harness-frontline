@@ -1,0 +1,151 @@
+/* Agent chat widget.
+   Deliberately minimal - override these in your own theme rather than fighting them. */
+
+.ach-root {
+    --ach-primary: #0f6cbd;
+    --ach-surface: #ffffff;
+    --ach-border: #e1e1e1;
+    --ach-text: #242424;
+    --ach-muted: #616161;
+
+    position: relative;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.ach-launcher {
+    background: var(--ach-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+.ach-launcher:hover {
+    filter: brightness(0.94);
+}
+
+.ach-launcher:focus-visible {
+    outline: 2px solid var(--ach-text);
+    outline-offset: 2px;
+}
+
+.ach-panel {
+    position: absolute;
+    bottom: 52px;
+    right: 0;
+    width: 380px;
+    height: 520px;
+    max-width: 96vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ach-surface);
+    border: 1px solid var(--ach-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+}
+
+.ach-hidden {
+    display: none;
+}
+
+.ach-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--ach-primary);
+    color: #ffffff;
+}
+
+.ach-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.ach-close {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.ach-close:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.ach-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ach-chat {
+    flex: 1;
+    min-height: 0;
+}
+
+.ach-status {
+    padding: 20px;
+    color: var(--ach-muted);
+    font-size: 14px;
+    text-align: center;
+}
+
+.ach-error {
+    color: #a4262c;
+    text-align: left;
+}
+
+.ach-transcript {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ach-bubble {
+    max-width: 84%;
+    padding: 10px 13px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.ach-user {
+    align-self: flex-end;
+    background: var(--ach-primary);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.ach-agent {
+    align-self: flex-start;
+    background: #f3f3f3;
+    color: var(--ach-text);
+    border-bottom-left-radius: 4px;
+}
+
+.ach-card {
+    border: 1px solid var(--ach-border);
+    background: var(--ach-surface);
+}
+
+.ach-typing {
+    color: var(--ach-muted);
+    letter-spacing: 2px;
+}

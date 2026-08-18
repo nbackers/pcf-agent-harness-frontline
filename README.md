@@ -42,6 +42,35 @@ the product, but it's what the audience remembers.
 
 ---
 
+## What's in this repo
+
+**This one builds, lints and tests.**
+
+```powershell
+npm install
+npm run build    # ESLint + TypeScript + webpack -> out/controls/AgentChatWidget
+npm test         # 11 unit tests
+npm start        # PCF test harness in a browser
+```
+
+| Included | Not included |
+|---|---|
+| Complete PCF control (TypeScript), builds clean | A packaged `.zip` solution |
+| Both auth paths, with the OAuth card interception | A deployed, live-tested agent connection |
+| Offline demo harness with five scenarios | Adaptive Card rendering in demo mode (turns render as text) |
+| 11 unit tests over context building and demo playback | Tests for the live DirectLine paths |
+| CI running lint, test, build and a manifest-integrity check | |
+
+**Verification status:** the build, lint and test pipeline is verified and runs in CI on every push.
+The auth flow and token exchange are ported from a working production build, but **have not been
+re-verified against a live agent in this repo** — the network paths are not unit tested, because
+mocking DirectLine and MSAL would test the mock rather than the integration.
+
+So: the component compiles, the logic is tested, and the auth pattern is proven elsewhere. Connect
+it to your own agent to confirm the end-to-end path.
+
+---
+
 ## Auth: two paths, one honest recommendation
 
 ### Development — Direct Line secret
@@ -151,23 +180,25 @@ data: {
 
 | Path | Purpose |
 |---|---|
-| `AgentChatWidget/ControlManifest.Input.xml` | Control manifest and properties |
-| `AgentChatWidget/auth.js` | Both auth paths and the OAuth card interception |
-| `AgentChatWidget/demo.js` | Offline scenario harness |
+| `AgentChatWidget/index.ts` | The control — lifecycle, panel UI, connection and demo wiring |
+| `AgentChatWidget/auth.ts` | Both auth paths and the OAuth card interception |
+| `AgentChatWidget/demo.ts` | Offline scenario harness |
+| `AgentChatWidget/css/` | Styles |
+| `tests/` | Unit tests |
 | `docs/setup.md` | Build, deploy and configure |
 
 ---
 
 ## Status
 
-This is a **reference implementation of the auth and context patterns**, extracted from a working
-build. The auth flow, token exchange and context passing are proven in a real deployment.
+The control **builds, lints and passes its tests**, verified in CI on every push. The auth flow and
+token exchange are ported from a working production implementation.
 
-Not included: a packaged solution, or a full WebChat styling layer. The intent is that the patterns
-here are the hard part, and the rest is standard PCF work.
+What has **not** been done here: connecting to a live agent and confirming the end-to-end token
+exchange from this repo. The network paths aren't unit tested — mocking DirectLine and MSAL would
+test the mock, not the integration.
 
-The harness is being tracked against Copilot Studio's evolving embedding story — if the platform
-ships a first-party control that does this properly, use it. Until then, this works.
+If the platform ships a first-party control that does this properly, use it. Until then, this works.
 
 ---
 

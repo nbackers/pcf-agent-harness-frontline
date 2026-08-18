@@ -1,0 +1,45 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Check manifest resources exist
+        # A manifest referencing a missing file is a real failure mode: it can build
+        # from a warm cache locally and fail for anyone cloning fresh.
+        run: |
+          set -e
+          manifest=AgentChatWidget/ControlManifest.Input.xml
+          grep -oP '(?<=path=")[^"]+' "$manifest" | while read -r p; do
+            if [ ! -f "AgentChatWidget/$p" ]; then
+              echo "Manifest references AgentChatWidget/$p which does not exist"
+              exit 1
+            fi
+            echo "ok: AgentChatWidget/$p"
+          done
