@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control
+    namespace="AgentHarness"
+    constructor="AgentChatWidget"
+    version="1.0.0"
+    display-name-key="Agent Chat Widget"
+    description-key="Embeds a Copilot Studio agent in a Power App, with SSO, screen context and an offline demo mode."
+    control-type="standard">
+
+    <external-service-usage enabled="true">
+      <domain>directline.botframework.com</domain>
+      <domain>europe.directline.botframework.com</domain>
+      <domain>cdn.botframework.com</domain>
+      <domain>login.microsoftonline.com</domain>
+    </external-service-usage>
+
+    <!-- Development auth. A Direct Line secret in an app property is visible to anyone
+         who can open the app - use SSO for anything real. -->
+    <property name="DirectLineSecret"
+              display-name-key="Direct Line Secret"
+              description-key="Development only. Leave blank when using SSO."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <!-- Production auth. Copilot Studio > Settings > Advanced > Metadata. -->
+    <property name="TokenEndpointUrl"
+              display-name-key="Token Endpoint URL"
+              description-key="Copilot Studio token endpoint for SSO mode."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="ClientId"
+              display-name-key="App Registration Client ID"
+              description-key="Entra app registration client ID used to acquire the user token."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="AgentId"
+              display-name-key="Entra Agent ID"
+              description-key="Copilot Studio Entra agent ID, used to build the token scope."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="AgentName"
+              display-name-key="Agent Name"
+              description-key="Name shown in the chat header."
+              of-type="SingleLine.Text" usage="input" required="false"
+              default-value="Assistant" />
+
+    <property name="PrimaryColor"
+              display-name-key="Primary Colour"
+              description-key="Brand colour as hex."
+              of-type="SingleLine.Text" usage="input" required="false"
+              default-value="#0f6cbd" />
+
+    <!-- Screen context. This is what makes an embedded agent better than a separate
+         chat surface - it already knows who and what the user is looking at. -->
+    <property name="UserId"
+              display-name-key="User ID"
+              description-key="Current user id, passed to the agent."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="UserName"
+              display-name-key="User Name"
+              description-key="Current user display name, passed to the agent."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="RecordId"
+              display-name-key="Record ID"
+              description-key="Id of the record on the current screen."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="RecordTable"
+              display-name-key="Record Table"
+              description-key="Logical name of the table for the current record."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="ContextJson"
+              display-name-key="Context JSON"
+              description-key="Extra context as a JSON object, merged into the screen context."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <!-- Offline demo mode. Plays a scripted conversation with no network dependency. -->
+    <property name="DemoMode"
+              display-name-key="Demo Mode"
+              description-key="Plays a scripted conversation without a live agent connection."
+              of-type="TwoOptions" usage="input" required="false"
+              default-value="false" />
+
+    <property name="DemoScenario"
+              display-name-key="Demo Scenario"
+              description-key="Scenario key to play in demo mode."
+              of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="sampleProperty"
+              display-name-key="Bound Field"
+              description-key="Bind to any text field."
+              of-type="SingleLine.Text" usage="bound" required="true" />
+
+    <resources>
+      <code path="index.ts" order="1" />
+      <css path="css/AgentChatWidget.css" order="1" />
+    </resources>
+
+  </control>
+</manifest>
