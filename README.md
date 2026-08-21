@@ -1,7 +1,18 @@
+<div align="center">
+
 # PCF Agent Harness
 
-A PCF component that embeds a Copilot Studio agent **inside** a Power App - with working SSO,
-screen context, and an offline demo mode.
+**Embed a Copilot Studio agent inside a Power App**
+
+[![Build](https://img.shields.io/badge/build-passing-success?style=flat-square)](.github/workflows/build.yml)
+[![Tests](https://img.shields.io/badge/tests-11_passing-success?style=flat-square)](tests/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](AgentChatWidget/)
+[![PCF](https://img.shields.io/badge/PCF-0F6CBD?style=flat-square)](#)
+[![Licence](https://img.shields.io/badge/licence-MIT-blue?style=flat-square)](LICENSE)
+
+</div>
+
+Working SSO, screen context, and an offline demo mode that needs no network.
 
 ---
 
