@@ -8,6 +8,7 @@
 [![Tests](https://img.shields.io/badge/tests-11_passing-success?style=flat-square)](tests/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](AgentChatWidget/)
 [![PCF](https://img.shields.io/badge/PCF-0F6CBD?style=flat-square)](#)
+[![Sample code](https://img.shields.io/badge/sample_code-not_production_ready-orange?style=flat-square)](#disclaimer)
 [![Licence](https://img.shields.io/badge/licence-MIT-blue?style=flat-square)](LICENSE)
 
 </div>
@@ -73,12 +74,12 @@ npm start        # PCF test harness in a browser
 | CI running lint, test, build and a manifest-integrity check | |
 
 **Verification status:** the build, lint and test pipeline is verified and runs in CI on every push.
-The auth flow and token exchange are ported from a working production build, but **have not been
-re-verified against a live agent in this repo** - the network paths are not unit tested, because
-mocking DirectLine and MSAL would test the mock rather than the integration.
+The auth flow and token exchange **have not been verified against a live agent in this repo** - the
+network paths are not unit tested, because mocking DirectLine and MSAL would test the mock rather
+than the integration.
 
-So: the component compiles, the logic is tested, and the auth pattern is proven elsewhere. Connect
-it to your own agent to confirm the end-to-end path.
+So: the component compiles and the logic is tested. Connect it to your own agent to confirm the
+end-to-end path.
 
 ---
 
@@ -201,14 +202,30 @@ data: {
 
 ## Status
 
-The control **builds, lints and passes its tests**, verified in CI on every push. The auth flow and
-token exchange are ported from a working production implementation.
+The control **builds, lints and passes its tests**, verified in CI on every push.
 
 What has **not** been done here: connecting to a live agent and confirming the end-to-end token
-exchange from this repo. The network paths aren't unit tested - mocking DirectLine and MSAL would
-test the mock, not the integration.
+exchange. The network paths are not unit tested, because mocking DirectLine and MSAL would test the
+mock, not the integration.
 
-If the platform ships a first-party control that does this properly, use it. Until then, this works.
+If the platform ships a first-party control that does this properly, use it.
+
+---
+
+## Disclaimer
+
+This is **sample code**, published as a reusable reference pattern.
+
+- Provided **as is**, without warranty of any kind, express or implied. See [LICENSE](LICENSE).
+- **Not production ready.** Treat it as a starting point, not a finished solution. Review, test and
+  harden it against your own requirements before any real use.
+- **Not an official Microsoft product** and not affiliated with, endorsed by, or supported by
+  Microsoft. Product names are trademarks of their respective owners.
+- **No support commitment.** Issues and pull requests are welcome, but nothing here carries an SLA.
+- Some behaviours documented here rely on **undocumented or preview platform features** that can
+  change without notice. Verify against current documentation before depending on them.
+- You are responsible for security, privacy, licensing and regulatory compliance in your own
+  environment.
 
 ---
 
