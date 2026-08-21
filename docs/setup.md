@@ -5,7 +5,6 @@ Build, deploy and configure the control.
 ---
 
 ## Prerequisites
-
 - Node.js 18+
 - Power Platform CLI (`pac`)
 - A Copilot Studio agent, published
@@ -30,7 +29,7 @@ pac solution add-reference --path ..\AgentChatWidget
 dotnet build
 ```
 
-## Configure — development
+## Configure - development
 
 Fastest path to something on screen. **Not for production.**
 
@@ -39,12 +38,11 @@ Fastest path to something on screen. **Not for production.**
 
 The secret is readable by anyone who can open the app. Use it to prove the wiring, then move to SSO.
 
-## Configure — SSO
+## Configure - SSO
 
 ### 1. App registration
 
 Entra admin centre → **App registrations** → **New registration**.
-
 - Redirect URI: **Single-page application**, set to your app's origin
 - API permissions: delegated access to your Copilot Studio agent
 - Note the **Application (client) ID**
@@ -52,7 +50,6 @@ Entra admin centre → **App registrations** → **New registration**.
 ### 2. Agent metadata
 
 Copilot Studio → your agent → **Settings** → **Advanced** → **Metadata**. Copy:
-
 - **Token endpoint URL**
 - **Entra agent ID**
 
@@ -81,7 +78,7 @@ RecordId    = ThisItem.ID
 RecordTable = "your_table_logical_name"
 ```
 
-Extra context as JSON — note the doubled quotes in Power Fx:
+Extra context as JSON - note the doubled quotes in Power Fx:
 
 ```
 ContextJson = "{""shift"":""afternoon"",""site"":""north""}"
@@ -95,35 +92,34 @@ DemoScenario = "daily"
 ```
 
 Scenarios: `daily`, `walk`, `incident`, `away`, `team`. Edit `AgentChatWidget/demo.js` to add your
-own — keep them short, and make each land on a decision rather than a status readout.
+own - keep them short, and make each land on a decision rather than a status readout.
 
 ---
 
 ## Troubleshooting
 
-**"Set the DirectLineSecret property"** — neither auth mode is configured. Set `DirectLineSecret`,
+**"Set the DirectLineSecret property"** - neither auth mode is configured. Set `DirectLineSecret`,
 or all three SSO properties.
 
-**Token endpoint returns 401/403** — the agent isn't published, or authentication isn't configured
+**Token endpoint returns 401/403** - the agent isn't published, or authentication isn't configured
 in Copilot Studio.
 
-**User is asked to sign in despite SSO** — the OAuth card interception isn't running. Check the
+**User is asked to sign in despite SSO** - the OAuth card interception isn't running. Check the
 browser console for `Silent token exchange failed`. Usual causes: `AgentId` wrong, so the scope
 `api://botid-{agentId}/.default` doesn't match; or admin consent not granted.
 
-**Card buttons do nothing** — missing `__isBotFrameworkCardAction` on the button's `data`. See the
+**Card buttons do nothing** - missing `__isBotFrameworkCardAction` on the button's `data`. See the
 README.
 
-**Agent doesn't know the user** — check the context properties are populated. `User()` returns empty
+**Agent doesn't know the user** - check the context properties are populated. `User()` returns empty
 in some embedded contexts; test with a literal first.
 
-**Nothing renders** — the WebChat CDN is likely blocked. Check `external-service-usage` in the
+**Nothing renders** - the WebChat CDN is likely blocked. Check `external-service-usage` in the
 manifest lists every domain you call.
 
 ## Security notes
-
 - Never ship a Direct Line secret in a production app.
 - Tokens are cached in `sessionStorage` deliberately, so they don't outlive the tab.
 - The token exchange posts the user's access token to the Direct Line conversation. That is the
-  documented mechanism, but it does mean the agent receives a token scoped to itself — scope the app
+  documented mechanism, but it does mean the agent receives a token scoped to itself - scope the app
   registration to exactly what the agent needs, and no more.
